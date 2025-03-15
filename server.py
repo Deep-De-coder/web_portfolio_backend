@@ -4,6 +4,7 @@ import json
 import torch
 from sentence_transformers import SentenceTransformer, util
 from transformers import pipeline
+import os
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -166,4 +167,5 @@ def chat():
         return jsonify({"error": "An error occurred", "details": str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))  # Use Render's assigned port or default to 5000
+    app.run(host="0.0.0.0", port=port, debug=True)
