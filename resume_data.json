@@ -1,0 +1,243 @@
+{
+    "personal_info": {
+      "name": "Deep Shahane",
+      "contact": "+1 (716) 970-8588",
+      "email": "deepniti@buffalo.edu",
+      "linkedin": "linkedin.com/in/deep-shahane",
+      "github": "github.com/Deep-De-coder",
+      "portfolio": "deep-de-coder.github.io",
+      "location": "Buffalo, NY"
+    },
+    "personal_summary": "I am a student passionate about solving problems and exploring innovative solutions. With expertise in programming, data analysis, and cloud technologies, I strive to tackle challenging problems and make a positive impact through technology.",
+"strengths": [
+    "Critical Thinking: Analyzing problems deeply and devising innovative solutions.",
+    "Adaptability: Thriving in dynamic environments and embracing new challenges.",
+    "Leadership: Leading teams effectively and fostering collaboration for successful outcomes."
+],
+
+    "education": [
+      {
+        "institution": "University at Buffalo, The State University of New York",
+        "degree": "Master of Science in Computer Science (MSCS)",
+        "period": "Aug 2023 - May 2025",
+        "courses": [
+          "Information Retrieval",
+          "Computer Vision and Image Processing",
+          "Deep Learning",
+          "Introduction to Machine Learning"
+        ]
+      },
+      {
+        "institution": "Mumbai University, Vidyalankar Institute Of Technology (VIT)",
+        "degree": "Bachelor of Engineering in Computer Engineering",
+        "period": "Aug 2019 - June 2023",
+        "gpa": 3.8,
+        "courses": [
+          "Machine Learning",
+          "Big Data Analytics",
+          "Artificial Intelligence",
+          "Analysis of Algorithms"
+        ]
+      }
+    ],
+    "certifications": [
+      "Microsoft: Azure AI Fundamentals",
+      "NVIDIA: Building Real-Time Video AI Applications"
+    ],
+    "skills": {
+      "programming_languages": ["Python", "C++", "Java", "Kotlin", "Dart", "C#"],
+      "cloud_technologies": ["AWS", "GCP", "Azure"],
+      "tools_frameworks": [
+        "React Native",
+        "Flutter",
+        "Git (GitHub)",
+        "Power BI",
+        "PySpark",
+        "Postman",
+        "Hugging Face",
+        "Jupyter Notebook",
+        "Visual Studio",
+        "Android Studio",
+        "Unity",
+        "Figma",
+        "Linux",
+        "ROS",
+        "Docker",
+        "OpenAI",
+        "Firebase"
+      ],
+      "libraries": [
+        "TensorFlow",
+        "Keras",
+        "Langchain",
+        "Transformers",
+        "Pytorch",
+        "Pandas",
+        "Matplotlib",
+        "NumPy",
+        "Seaborn",
+        "Scikit-learn",
+        "OpenCV"
+      ]
+    },
+    "work_experience": [
+      {
+        "company": "Bragr",
+        "role": "Artificial Engineer Intern",
+        "technologies": ["Azure", "Python", "React"],
+        "period": "Aug 2024 - Present",
+        "responsibilities": [
+          "Implemented a FastAPI-driven backend for a chat application integrating Azure OpenAI.",
+          "Developed asynchronous web scraping solutions using Python and FastAPI.",
+          "Optimized MongoDB database interactions for chat histories.",
+          "Enhanced user flow and scalability of a web-based chat application."
+        ]
+      },
+      {
+        "company": "University at Buffalo",
+        "role": "Research Assistant",
+        "technologies": ["Gaussian Splatting", "Python", "Computer Graphics"],
+        "period": "Sep 2024 - Present",
+        "responsibilities": [
+          "Conducting research under Dr. Chen Wang focusing on Gaussian Splatting for advanced rendering techniques.",
+          "Developing methodologies to improve the efficiency and quality of rendering processes."
+        ]
+      },
+      {
+        "company": "VIT",
+        "role": "Software Intern",
+        "technologies": ["Azure", "Python", "Flask", "SQL"],
+        "period": "June 2021 - Aug 2021",
+        "responsibilities": [
+          "Developed VIT Internship Portal for managing application processes.",
+          "Created an efficient backend system using Flask and SQLite.",
+          "Deployed the project on Azure leveraging multiple services."
+        ]
+      }
+    ],
+        "projects": [
+          {
+            "title": "Auto Envision",
+            "technologies": ["Python", "Google Colab", "Time Series Algorithm"],
+            "period": "Sep 2022 - Apr 2023",
+            "description": "Completed sales forecasting using ARIMA, LSTM, and FB Prophet. Led data cleaning for a dataset of 100,000+ rows, achieving 95% accuracy with FB Prophet.",
+            "short_description": "Sales forecasting using AI models.",
+            "link": "https://link.springer.com/chapter/10.1007/978-981-99-3982-4_41"
+          },
+
+          {
+            "title": "Car Price EDA",
+            "technologies": ["Pandas", "Numpy", "Google Colab"],
+            "period": "Sep 2022 - Nov 2022",
+            "description": "Performed in-depth EDA on a car price dataset with 11,900 rows and 16 columns. Used Matplotlib and Seaborn for data visualization, enabling data-driven decision-making."
+          },
+          {
+            "title": "Flying Cubes",
+            "technologies": ["AR", "Unity", "C#"],
+            "period": "Oct 2022 - Jan 2023",
+            "description": "Developed an AR application allowing real-time manipulation of ascending cubes. Demonstrated Unity and AR proficiency with engaging user interactions."
+          },
+          {
+            "title": "Coinee",
+            "technologies": ["Flutter", "Dart", "Google Play Store"],
+            "period": "Aug 2024 - Oct 2024",
+            "description": "Built a Flutter-based coin collection app showcasing 300+ rare coins from 15+ countries. Integrated features like a quiz and coin value calculator.",
+            "short_description": "A coin collection app with rare coins & quizzes.",
+            "link": "https://play.google.com/store/apps/details?id=com.deepshahane.coines"
+          },
+          {
+            "title": "Worker’s Application",
+            "technologies": ["Android", "Kotlin", "Firebase"],
+            "period": "Dec 2021 - Jan 2022",
+            "description": "Streamlined the hiring of service workers with a Kotlin-based app. Features included worker profiles, real-time updates, and secure database storage."
+          },
+          {
+            "title": "Novel Chatbot",
+            "technologies": ["RAG", "Transformers", "NLTK", "API"],
+            "period": "Oct 2023 - Nov 2023",
+            "description": "Built a chatbot for novel-specific and general user queries. Processed novel texts, trained a Random Forest classifier, and integrated Hugging Face APIs, deployed on GCP."
+          },
+          {
+            "title": "Road Extraction From Satellite Images",
+            "technologies": ["OpenCV", "Google Colab", "VGG", "ResNet", "UNet"],
+            "period": "Sep 2023 - Nov 2023",
+            "description": "Engineered a fusion approach combining ResNet50 and VGG models for road extraction. Achieved 95.3% validation accuracy using UNet modeling and data augmentation."
+          },
+          {
+            "title": "Language Translation Enhancement",
+            "technologies": ["PyTorch", "Google T5", "Facebook M2M-100", "Gradio"],
+            "period": "Feb 2024 - Apr 2024",
+            "description": "Developed an English-to-French translation system using Google T5 and Facebook M2M-100. Achieved a METEOR score of 0.109 and deployed it on Gradio for real-time interaction."
+          }
+        ],
+            
+    "publications": [
+      {
+        "title": "Music Fiesta the Recommendation System",
+        "doi": "https://doi.org/10.1109/ICTIIA54654.2022.9936009"
+      },
+      {
+        "title": "Car Sales Forecasting Using ML Time Series Algorithm",
+        "doi": "https://doi.org/10.1007/978-981-99-3982-4_41"
+      }
+    ],
+        "leadership": [
+          {
+            "role": "Android Co-Lead",
+            "organization": "Google Developer Student Club, VIT",
+            "period": "June 2021 - May 2022",
+            "responsibilities": [
+              "Led a team of 8 members, fostering collaboration and successfully serving as the Android Facilitator for the month-long Android Jams event in December.",
+              "Deployed a project using Kotlin, demonstrating strong leadership, team management, and project execution skills.",
+              "Practiced critical thinking to resolve technical and interpersonal challenges during the event."
+            ],
+            "skills": ["Critical Thinking", "Team Management", "Technical Leadership"]
+          },
+          {
+            "role": "Event Head",
+            "organization": "Computer Society of India, VIT",
+            "period": "June 2021 - May 2022",
+            "responsibilities": [
+              "Led Enthusia22, a week-long flagship event, coordinating with speakers and managing an 8-person team.",
+              "Facilitated community communication, guiding individuals to overcome stage fear and bridge communication gaps.",
+              "Exhibited stress management and adaptability in coordinating multiple stakeholders under tight deadlines."
+            ],
+            "skills": ["Stress Management", "Adaptability", "Public Speaking"]
+          },
+          {
+            "role": "Event and Communication Manager",
+            "organization": "Ted X, VIT",
+            "period": "April 2021 - May 2021",
+            "responsibilities": [
+              "Executed event publicity, resulting in the sale of nearly 30% of total tickets.",
+              "Supported team efforts in communicating with various groups and successfully orchestrated a compelling TEDx seminar.",
+              "Demonstrated critical thinking and problem-solving to manage event logistics effectively."
+            ],
+            "skills": ["Critical Thinking", "Event Promotion", "Team Coordination"]
+          },
+          {
+            "role": "Club Service Director",
+            "organization": "Rotaract Club of New Kalyan",
+            "period": "Dec 2022 - Jul 2023",
+            "responsibilities": [
+              "Conducted 5 different events and collaborated with other clubs on various activities.",
+              "Organized in-person and virtual games to boost team morale and resolved various conflicts effectively.",
+              "Practiced interpersonal communication to maintain a cohesive and motivated team."
+            ],
+            "skills": ["Interpersonal Communication", "Conflict Resolution", "Event Management"]
+          },
+          {
+            "role": "Hackathon Leader and Mentor",
+            "organization": "Various Hackathons",
+            "period": "Dec 2019 - May 2022",
+            "responsibilities": [
+              "Led a team of 4 in 3 different hackathons, receiving special mentions in each. Adapted to varying situations and challenges by working with different team members.",
+              "Mentored 5 teams in a national-level hackathon, providing guidance on project planning, coding, and problem-solving.",
+              "Provided mentorship to students during UB Hacking, focusing on ideation, technical feasibility, and teamwork."
+            ],
+            "skills": ["Mentorship", "Adaptability", "Stress Management"]
+          }
+        ]
+      }
+      
+  
