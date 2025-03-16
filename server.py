@@ -165,8 +165,8 @@ def chat():
 
 # 🚀 **Run Flask App Correctly for Render**
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))  # Default to 5000 if not set
+    port = int(os.environ.get("PORT", 10000))  # Render default is 10000
     print(f"🚀 Starting Flask on port {port}...")  # Debugging output
-    
-    # ✅ Use "threaded=True" to prevent blocking and allow concurrent requests
+
+    # ✅ Ensure the app is multi-threaded for Render
     app.run(host="0.0.0.0", port=port, debug=False, threaded=True)
