@@ -167,5 +167,7 @@ def chat():
         return jsonify({"error": "An error occurred", "details": str(e)}), 500
 
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 10000))  # Use Render's assigned port, default to 10000
+    port = int(os.environ.get("PORT", 5000))  # Default to 5000 if PORT is not set
+    print(f"🚀 Starting Flask on port {port}...")  # Debugging output
+
     app.run(host="0.0.0.0", port=port)
