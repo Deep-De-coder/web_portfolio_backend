@@ -1,10 +1,10 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import json
+import os
 import torch
 from sentence_transformers import SentenceTransformer, util
 from transformers import pipeline
-import os
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -145,6 +145,7 @@ def format_skills_response():
 # ✅ API Routes
 @app.route('/chat', methods=['POST'])
 def chat():
+    """Chatbot API Route"""
     try:
         data = request.json
         prompt = data.get("prompt", "").strip()
@@ -152,22 +153,20 @@ def chat():
         if not prompt:
             return jsonify({"error": "Prompt cannot be empty."}), 400
 
-        extracted_entities = extract_entities(prompt) if flair_enabled else {}
-        intent = detect_intent(prompt)
-
         json_response = answer_from_json(prompt)
         if json_response:
             return jsonify({"response": json_response})
 
         relevant_context = retrieve_relevant_context(prompt)
-        response = format_response(relevant_context, relevant_context)
-        return jsonify({"response": response})
+        return jsonify({"response": relevant_context})
 
     except Exception as e:
         return jsonify({"error": "An error occurred", "details": str(e)}), 500
 
-if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5000))  # Default to 5000 if PORT is not set
+# 🚀 **Run Flask App Correctly for Render**
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))  # Default to 5000 if not set
     print(f"🚀 Starting Flask on port {port}...")  # Debugging output
-
-    app.run(host="0.0.0.0", port=port)
+    
+    # ✅ Use "threaded=True" to prevent blocking and allow concurrent requests
+    app.run(host="0.0.0.0", port=port, debug=False, threaded=True)
