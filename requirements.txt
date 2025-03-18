@@ -3,6 +3,5 @@ Flask-CORS
 torch
 transformers
 sentence-transformers
-flair
 gunicorn
 requests
