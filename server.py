@@ -143,8 +143,6 @@ def chat():
     except Exception as e:
         return jsonify({"error": "An error occurred", "details": str(e)}), 500
 
-# 🚀 **Run Flask App Correctly for Render**
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 10000))  # Use Render's assigned PORT
-    print(f"🚀 Starting Flask on port {port}...")  # Debugging output
+    port = int(os.environ.get("PORT", 5000))  # Use 5000 as default
     app.run(host="0.0.0.0", port=port, debug=False, threaded=True)
