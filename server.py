@@ -133,15 +133,18 @@ def chat():
         if not prompt:
             return jsonify({"error": "Prompt cannot be empty."}), 400
 
-        json_response = answer_from_json(prompt)
-        if json_response:
-            return jsonify({"response": json_response})
+        # ✅ Load models only when needed (memory optimization)
+        intent_classifier = get_intent_classifier()
+        transformer_model = get_sentence_transformer()
 
-        relevant_context = retrieve_relevant_context(prompt)
-        return jsonify({"response": relevant_context})
+        labels = ["Skill Inquiry", "Project Inquiry", "Work Experience Inquiry", "Education Inquiry", "General"]
+        result = intent_classifier(prompt, candidate_labels=labels)
+
+        return jsonify({"response": result["labels"][0]})
 
     except Exception as e:
         return jsonify({"error": "An error occurred", "details": str(e)}), 500
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=False, threaded=True)
+    port = 5000  # ✅ Hardcoded to 5000
+    app.run(host="0.0.0.0", port=port, debug=False, threaded=True)
