@@ -14,10 +14,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Set environment variables
-ENV PORT=10000
+ENV PORT=5000
 
 # Expose the correct port
-EXPOSE 10000
+EXPOSE 5000
 
 # Start Gunicorn with the correct port
-CMD ["gunicorn", "-w", "1", "-b", "0.0.0.0:10000", "server:app"]
+CMD ["gunicorn", "-w", "1", "-b", "0.0.0.0:5000", "server:app"]
