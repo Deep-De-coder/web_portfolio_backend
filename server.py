@@ -122,6 +122,16 @@ def format_skills_response():
     ]
     return "<strong>Skills:</strong><br><br>" + "<br>".join(skills) if skills else "No skills available."
 
+# ✅ Lazy load memory-heavy libraries
+def get_intent_classifier():
+    from transformers import pipeline
+    return pipeline("zero-shot-classification", model="facebook/bart-large-mnli")
+
+def get_sentence_transformer():
+    from sentence_transformers import SentenceTransformer
+    return SentenceTransformer('all-MiniLM-L6-v2')
+
+
 # ✅ API Routes
 @app.route('/chat', methods=['POST'])
 def chat():
