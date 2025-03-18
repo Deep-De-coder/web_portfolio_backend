@@ -14,16 +14,6 @@ CORS(app)
 with open("resume_data.json", "r") as f:
     resume_data = json.load(f)
 
-# Optional: Initialize Flair NER (Comment out if not needed)
-try:
-    from flair.data import Sentence
-    from flair.models import SequenceTagger
-    ner_tagger = SequenceTagger.load("flair/ner-english-ontonotes-large")
-    flair_enabled = True
-except ImportError:
-    print("Flair not installed. Skipping NER.")
-    flair_enabled = False
-
 # Initialize NLU Intent Classifier
 intent_classifier = pipeline("zero-shot-classification", model="facebook/bart-large-mnli")
 
@@ -32,16 +22,6 @@ model = SentenceTransformer('all-MiniLM-L6-v2')
 resume_context = "\n".join([str(item) for item in resume_data.values()])
 context_sentences = resume_context.split("\n")
 context_embeddings = model.encode(context_sentences, convert_to_tensor=True)
-
-# ✅ Extract Named Entities (Optional)
-def extract_entities(text):
-    """Extract named entities (Skills, Projects, etc.) from user queries using Flair."""
-    if not flair_enabled:
-        return {}
-    
-    sentence = Sentence(text)
-    ner_tagger.predict(sentence)
-    return {entity.text: entity.get_label("ner").value for entity in sentence.get_spans("ner")}
 
 # ✅ Detect User Intent
 def detect_intent(question):
@@ -165,8 +145,6 @@ def chat():
 
 # 🚀 **Run Flask App Correctly for Render**
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 10000))  # Render default is 10000
+    port = int(os.environ.get("PORT", 10000))  # Use Render's assigned PORT
     print(f"🚀 Starting Flask on port {port}...")  # Debugging output
-
-    # ✅ Ensure the app is multi-threaded for Render
     app.run(host="0.0.0.0", port=port, debug=False, threaded=True)
