@@ -1,8 +1,9 @@
+fastapi
+uvicorn
+gunicorn
 Flask
 Flask-CORS
 torch
 transformers
 sentence-transformers
-gunicorn
 requests
-uvicorn
