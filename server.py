@@ -1,39 +1,59 @@
-from flask import Flask, request, jsonify
-from flask_cors import CORS
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+import uvicorn
 import json
-import os
 import torch
 from sentence_transformers import SentenceTransformer, util
 from transformers import pipeline
 
-# Initialize Flask app
-app = Flask(__name__)
-CORS(app)
+# ✅ Initialize FastAPI app
+app = FastAPI()
 
-# Load Resume JSON
+# ✅ Enable CORS for frontend communication
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Adjust for security
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# ✅ Load Resume JSON
 with open("resume_data.json", "r") as f:
     resume_data = json.load(f)
 
-# Initialize NLU Intent Classifier
-intent_classifier = pipeline("zero-shot-classification", model="facebook/bart-large-mnli")
+# ✅ Lazy load models (prevents unnecessary memory consumption)
+def get_intent_classifier():
+    return pipeline("zero-shot-classification", model="facebook/bart-large-mnli")
 
-# Initialize SentenceTransformer for RAG
-model = SentenceTransformer('all-MiniLM-L6-v2')
+def get_sentence_transformer():
+    return SentenceTransformer('all-MiniLM-L6-v2')
+
+# ✅ Initialize models when required
+intent_classifier = get_intent_classifier()
+transformer_model = get_sentence_transformer()
+
+# ✅ Create embeddings for retrieval
 resume_context = "\n".join([str(item) for item in resume_data.values()])
 context_sentences = resume_context.split("\n")
-context_embeddings = model.encode(context_sentences, convert_to_tensor=True)
+context_embeddings = transformer_model.encode(context_sentences, convert_to_tensor=True)
+
+# ✅ Request Model
+class ChatRequest(BaseModel):
+    prompt: str
 
 # ✅ Detect User Intent
 def detect_intent(question):
-    """Classify intent using NLU (Zero-Shot Classification)."""
+    """Classify intent using Zero-Shot Classification."""
     labels = ["Skill Inquiry", "Project Inquiry", "Work Experience Inquiry", "Education Inquiry", "General"]
     result = intent_classifier(question, candidate_labels=labels)
     return result["labels"][0]
 
 # ✅ Retrieve Context for RAG (Information Retrieval)
 def retrieve_relevant_context(question, top_k=3):
-    """Retrieve relevant context from resume JSON using sentence embeddings."""
-    question_embedding = model.encode(question, convert_to_tensor=True)
+    """Retrieve relevant context using sentence embeddings."""
+    question_embedding = transformer_model.encode(question, convert_to_tensor=True)
     scores = util.pytorch_cos_sim(question_embedding, context_embeddings)[0]
     top_results = scores.topk(k=top_k)
     relevant_sentences = [context_sentences[idx] for idx in top_results.indices]
@@ -49,7 +69,7 @@ def format_response(answer, context):
     </div>
     """.strip()
 
-# ✅ Answer Extraction from JSON
+# ✅ Structured Responses from JSON
 def answer_from_json(question):
     """Fetch structured answers from resume JSON."""
     question = question.lower()
@@ -68,7 +88,7 @@ def answer_from_json(question):
         if key in question and value:
             return f"My {key} is {value}."
 
-    # ✅ Live Projects (Now with Links)
+    # ✅ Live Projects with Links
     if "live project" in question or "active project" in question:
         live_projects = [
             f"🌐 <strong>{proj['title']}</strong> - <a href='{proj['link']}' target='_blank'>{proj['link']}</a><br>"
@@ -122,39 +142,44 @@ def format_skills_response():
     ]
     return "<strong>Skills:</strong><br><br>" + "<br>".join(skills) if skills else "No skills available."
 
-# ✅ Lazy load memory-heavy libraries
-def get_intent_classifier():
-    from transformers import pipeline
-    return pipeline("zero-shot-classification", model="facebook/bart-large-mnli")
+# ✅ API Endpoints
+@app.get("/")
+def home():
+    return {"message": "Server is running. Use /chat to interact."}
 
-def get_sentence_transformer():
-    from sentence_transformers import SentenceTransformer
-    return SentenceTransformer('all-MiniLM-L6-v2')
-
-
-# ✅ API Routes
-@app.route('/chat', methods=['POST'])
-def chat():
+@app.post("/chat")
+def chat(request: ChatRequest):
     """Chatbot API Route"""
     try:
-        data = request.json
-        prompt = data.get("prompt", "").strip()
-
+        prompt = request.prompt.strip()
         if not prompt:
-            return jsonify({"error": "Prompt cannot be empty."}), 400
+            raise HTTPException(status_code=400, detail="Prompt cannot be empty.")
 
-        # ✅ Load models only when needed (memory optimization)
-        intent_classifier = get_intent_classifier()
-        transformer_model = get_sentence_transformer()
+        # ✅ Detect User Intent
+        intent = detect_intent(prompt)
 
-        labels = ["Skill Inquiry", "Project Inquiry", "Work Experience Inquiry", "Education Inquiry", "General"]
-        result = intent_classifier(prompt, candidate_labels=labels)
+        # ✅ Structured JSON Answers
+        json_response = answer_from_json(prompt)
+        if json_response:
+            return {"response": json_response, "intent": intent}
 
-        return jsonify({"response": result["labels"][0]})
+        # ✅ Retrieve Relevant Context for Answering
+        relevant_context = retrieve_relevant_context(prompt)
+
+        # ✅ Use Hugging Face Q&A Model (if needed)
+        qa_pipeline = pipeline("question-answering", model="deepset/roberta-base-squad2")
+        qa_result = qa_pipeline(question=prompt, context=relevant_context)
+        answer = qa_result.get("answer", "I'm sorry, I don't have an answer for that.")
+
+        # ✅ Format Response
+        response = format_response(answer, relevant_context)
+        return {"response": response, "intent": intent}
 
     except Exception as e:
-        return jsonify({"error": "An error occurred", "details": str(e)}), 500
+        raise HTTPException(status_code=500, detail=str(e))
 
+# ✅ Running the FastAPI Server
 if __name__ == "__main__":
-    port = 5000  # ✅ Hardcoded to 5000
-    app.run(host="0.0.0.0", port=port, debug=False, threaded=True)
+    uvicorn.run(app, host="127.0.0.1", port=8000, reload=True)
+
+
