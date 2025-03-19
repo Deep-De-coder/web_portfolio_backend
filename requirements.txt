@@ -5,3 +5,4 @@ transformers
 sentence-transformers
 gunicorn
 requests
+uvicorn
