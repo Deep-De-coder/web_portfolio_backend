@@ -142,10 +142,7 @@ def format_skills_response():
     ]
     return "<strong>Skills:</strong><br><br>" + "<br>".join(skills) if skills else "No skills available."
 
-# ✅ API Endpoints
-@app.get("/")
-def home():
-    return {"message": "Server is running. Use /chat to interact."}
+
 
 @app.post("/chat")
 def chat(request: ChatRequest):
@@ -179,8 +176,8 @@ def chat(request: ChatRequest):
         raise HTTPException(status_code=500, detail=str(e))
 
 # ✅ Running the FastAPI Server
-if __name__ == "__main__":
-    port = int(os.getenv("PORT", 8000))  # Use Render's PORT
-    uvicorn.run(app, host="0.0.0.0", port=port)
+@app.get("/")
+def home():
+    return {"message": "FastAPI is running on Render!"}
 
 
